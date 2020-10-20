@@ -5,28 +5,37 @@ import (
 )
 
 type Canvas struct {
-	Points [1591][401]byte
+	Points 	[]byte
+	Colors  color
+	Width	int
+	Height	int
 }
 
 func NewCanvas() *Canvas {
-	var c Canvas
-	for i, a := range c.Points{
-		for j, _ := range a{
-			c.Points[i][j] = 0
-		}
+	c := &Canvas{
+		Width: 1590,
+		Height: 400,
 	}
-	return &c
+
+	for i:=0;i <= c.Width * c.Height + c.Height;i++{
+		c.Points = append(c.Points, colors.GetRandomColor())
+	}
+
+	return c
 }
 
-func (c *Canvas) SetPoint(x int, y int, color uint8) error{
-	if x >= len(c.Points) || y >= len(c.Points[0]){
+func (c *Canvas) SetPoint(x int, y int, color byte) error{
+	if x > c.Width || y > c.Height{
 		return errors.New("wrong point position")
 	}
-	if color > 24{
-		return errors.New("color not exist")
-	}
 
-	c.Points[x][y] = color
-
+	c.Points[x * c.Height + y] = color
 	return nil
+}
+
+func (c *Canvas) GetPoint(x int, y int) (error, byte){
+	if x > c.Width || y > c.Height{
+		return errors.New("wrong point position"), 0
+	}
+	return nil, c.Points[x * c.Height + y]
 }
