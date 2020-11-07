@@ -7,8 +7,8 @@ import (
 type color [25]string
 
 func (c *color)Get(num int) byte{
-	if num >= len(c){
-		return 0
+	if num >= len(c) || num < 0{
+		return "0"[0]
 	}
 	return byte(c[num][0])
 }
@@ -37,7 +37,7 @@ var colors = color{
 	"g",
 	"h",
 	"i",
-	"g",
+	"j",
 	"k",
 	"l",
 	"m",
