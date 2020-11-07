@@ -24,12 +24,12 @@ func NewCanvas() *Canvas {
 	return c
 }
 
-func (c *Canvas) SetPoint(x int, y int, color byte) error{
+func (c *Canvas) SetPoint(x int, y int, clr int) error{
 	if x > c.Width || y > c.Height{
 		return errors.New("wrong point position")
 	}
 
-	c.Points[x * c.Height + y] = color
+	c.Points[x * c.Height + y] = colors.Get(clr)
 	return nil
 }
 
