@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  nginx:
+    build: nginx/
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - ws_server
+  ws_server:
+    build: ws_server/
+    restart: always
+    command: ./out/ws_server
